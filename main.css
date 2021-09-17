@@ -1,6 +1,10 @@
 body {
   text-align: center;
-
+  background: -webkit-linear-gradient(
+    top,
+    rgba(255, 240, 255, 0.4),
+    rgba(255, 240, 255, 1)
+  );
   height: 100vh;
 }
 
@@ -10,10 +14,26 @@ h1 {
 
 #dice1 {
   position: absolute;
-  left: 45%;
-  top: 200px;
+  left: 47%;
+  top: 170px;
   height: 100px;
   width: 100px;
+}
+
+#announcer {
+  font-weight: bold;
+}
+#prestart-image {
+  position: absolute;
+  left: 47%;
+  top: 140px;
+  height: 105px;
+  width: 105px;
+  background: violet;
+  font-size: 30px;
+  font-style: italic;
+  font-weight: bold;
+  z-index: 2;
 }
 
 .container {
@@ -23,44 +43,64 @@ h1 {
   border-radius: 10px;
 }
 
-.container-decisions {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  background: pink;
-  border: 1px pink solid;
-  border-radius: 10px;
-}
 .player-0 {
-  background: rgb(255, 0, 0);
-
+  background: rgb(219, 129, 129);
+  padding: 0;
   border-radius: 10px;
   width: 50%;
   height: 350px;
   float: left;
+  font-size: 30px;
+}
+
+.player-0#player-active {
+  background: rgb(255, 0, 0);
 }
 
 .player-1 {
-  background: gold;
-
+  background: rgb(202, 193, 138);
+  padding: 0;
   border-radius: 10px;
   height: 350px;
   width: 50%;
   float: right;
+  font-size: 30px;
+}
+
+#player-active {
+  background: rgb(255, 215, 0);
 }
 
 .button {
-  display: inline-block;
-  /* justify-content: center;
-  align-items: center; */
-  width: 50px;
+  padding: 0;
+  width: 100px;
   height: 50px;
   text-align: center;
-  background: grey;
+
   border: 1px #333 solid;
+  font-weight: bold;
   border-radius: 5px;
-  /* margin: auto; */
-  margin: 20px;
+  font-size: 16px;
+}
+
+#player-roll:hover,
+#player-pass:hover {
+  background: turquoise;
+  cursor: pointer;
+}
+
+#player-roll {
+  position: absolute;
+  background: magenta;
+  left: 47%;
+  top: 420px;
+}
+
+#player-pass {
+  position: absolute;
+  background: springgreen;
+  left: 47%;
+  top: 480px;
 }
 
 #current-score-player0,
@@ -72,20 +112,15 @@ h1 {
   width: 100px;
   height: 100px;
   font-size: 20px;
+  font-weight: bold;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 40px;
+  margin-bottom: 0px;
 }
 
 #total-score-player0,
 #total-score-player1 {
-  font-size: 40px;
   font-weight: bold;
   display: block;
-  height: 70px;
-  width: 100%;
-}
-
-.player-0 player-active {
-  opacity: 1;
+  height: 100px;
 }

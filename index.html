@@ -17,13 +17,14 @@
   </head>
   <body>
     <h1>PIG GAME</h1>
-    <h2 class="announce">May the luck be in your favour...</h2>
-    <img id="dice1" src="#" alt="Playing dice" class="dice" />
+    <h2 id="announce">May the luck be in your favour...</h2>
+    <p id="prestart-image">Roll dice to start!</p>
+    <img id="dice1" src="./dice/dice-1.jpg" alt="Playing dice" class="dice" />
     <div class="container">
-      <div class="player-0 player-active">
+      <div class="player-0" id="player-active">
         <h2>Player 1</h2>
         <article id="total-score-player0">
-          <h2>0</h2>
+          <h1>0</h1>
         </article>
         <article id="current-score-player0">
           <p>Current:</p>
@@ -33,7 +34,7 @@
       <div class="player-1">
         <h2>Player 2</h2>
         <article id="total-score-player1">
-          <h2>0</h2>
+          <h1>0</h1>
         </article>
         <article id="current-score-player1">
           <p>Current:</p>
@@ -41,13 +42,12 @@
         </article>
       </div>
     </div>
-    <div class="container-decisions">
-      <div id="player-roll" class="button">
-        <h3>Roll</h3>
-      </div>
-      <div id="player-pass" class="button">
-        <h3>Pass</h3>
-      </div>
+
+    <div id="player-roll" class="button">
+      <p>🎲 Roll</p>
+    </div>
+    <div id="player-pass" class="button">
+      <p>✅ Pass</p>
     </div>
   </body>
 </html>
