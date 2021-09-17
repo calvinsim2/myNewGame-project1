@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Pig Game, does lady luck favour you today?</title>
+    <!--     CSS stylesheet -->
+    <link rel="stylesheet" href="main.css" />
+    <!--     remember, jQuery must come first -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <!--     now your code -->
+    <script src="app.js" charset="utf-8" defer></script>
+  </head>
+  <body>
+    <h1>PIG GAME</h1>
+    <h2 class="announce">May the luck be in your favour...</h2>
+    <img id="dice1" src="#" alt="Playing dice" class="dice" />
+    <div class="container">
+      <div class="player-0 player-active">
+        <h2>Player 1</h2>
+        <article id="total-score-player0">
+          <h2>0</h2>
+        </article>
+        <article id="current-score-player0">
+          <p>Current:</p>
+          <p class="current-player0">0</p>
+        </article>
+      </div>
+      <div class="player-1">
+        <h2>Player 2</h2>
+        <article id="total-score-player1">
+          <h2>0</h2>
+        </article>
+        <article id="current-score-player1">
+          <p>Current:</p>
+          <p class="current-player1">0</p>
+        </article>
+      </div>
+    </div>
+    <div class="container-decisions">
+      <div id="player-roll" class="button">
+        <h3>Roll</h3>
+      </div>
+      <div id="player-pass" class="button">
+        <h3>Pass</h3>
+      </div>
+    </div>
+  </body>
+</html>
