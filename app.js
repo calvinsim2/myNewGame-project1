@@ -6,6 +6,7 @@ const main = function () {
   let total_scores;
   let currentScore;
   let activePlayer;
+  let players_playing = 2;
 
   //================ GAME MODE ===========================================================
   const pigMode = function () {
@@ -24,6 +25,33 @@ const main = function () {
   };
 
   //============== NUMBER OF PLAYERS SELECTION ===========================================
+
+  const choose2player = function () {
+    $(".player-2").hide();
+    $(".player-3").hide();
+    $(".player2").css("background", "yellow");
+    $(".player3").css("background", "#b0c4de");
+    $(".player4").css("background", "#b0c4de");
+    players_playing = 2;
+  };
+
+  const choose3player = function () {
+    $(".player-2").show();
+    $(".player-3").hide();
+    $(".player2").css("background", "#b0c4de");
+    $(".player3").css("background", "yellow");
+    $(".player4").css("background", "#b0c4de");
+    players_playing = 3;
+  };
+
+  const choose4player = function () {
+    $(".player-2").show();
+    $(".player-3").show();
+    $(".player2").css("background", "#b0c4de");
+    $(".player3").css("background", "#b0c4de");
+    $(".player4").css("background", "yellow");
+    players_playing = 4;
+  };
 
   //================ START & RESET GAME ==================================================
   const startGame = function () {
@@ -47,8 +75,14 @@ const main = function () {
     for (let i = 0; i < 4; i++) {
       $(`#total-score-player${i}`).text("0");
       $(`#current-player${i}`).text("0");
+      $(`.player-${i}`).removeAttr("id", "player-active");
     }
+    $(".player-0").attr("id", "player-active");
     $("#prestart-image").show();
+    if (current_game_mode === "big-pig") {
+      $("#prestart-image2").show();
+    }
+
     $("#show-game-page").hide();
     $("#show-intro-page").show();
   };
@@ -61,14 +95,17 @@ const main = function () {
       $("#boom").text("💥 BOOM! 💥");
     }, 2000);
   };
-  const switchPlayer = function () {
+
+  //==== Player switch functions =====================================================
+
+  const switchPlayerfor2 = function () {
     if (activePlayer === 0) {
       currentScore = 0;
       $(`.current-player${activePlayer}`).text("0");
-      $(".player-0").removeAttr("id", "player-active");
-      $(".player-1").attr("id", "player-active");
+      $(`.player-${activePlayer}`).removeAttr("id", "player-active");
+      $(`.player-${activePlayer + 1}`).attr("id", "player-active");
       $("#announce").text("Player 2 Turn!").css("color", "gold");
-      activePlayer = 1;
+      activePlayer += 1;
     } else {
       currentScore = 0;
       $(`.current-player${activePlayer}`).text("0");
@@ -76,6 +113,73 @@ const main = function () {
       $(".player-1").removeAttr("id", "player-active");
       $("#announce").text("Player 1 Turn!").css("color", "red");
       activePlayer = 0;
+    }
+  };
+
+  const switchPlayerfor3 = function () {
+    if (activePlayer === 0) {
+      currentScore = 0;
+      $(`.current-player${activePlayer}`).text("0");
+      $(`.player-${activePlayer}`).removeAttr("id", "player-active");
+      $(`.player-${activePlayer + 1}`).attr("id", "player-active");
+      $("#announce").text("Player 2 Turn!").css("color", "gold");
+      activePlayer += 1;
+    } else if (activePlayer === 1) {
+      currentScore = 0;
+      $(`.current-player${activePlayer}`).text("0");
+      $(`.player-${activePlayer}`).removeAttr("id", "player-active");
+      $(`.player-${activePlayer + 1}`).attr("id", "player-active");
+      $("#announce").text("Player 3 Turn!").css("color", "lawngreen");
+      activePlayer += 1;
+    } else if (activePlayer === 2) {
+      currentScore = 0;
+      $(`.current-player${activePlayer}`).text("0");
+      $(`.player-${activePlayer}`).removeAttr("id", "player-active");
+      $(`.player-0`).attr("id", "player-active");
+      $("#announce").text("Player 1 Turn!").css("color", "red");
+      activePlayer = 0;
+    }
+  };
+
+  const switchPlayerfor4 = function () {
+    if (activePlayer === 0) {
+      currentScore = 0;
+      $(`.current-player${activePlayer}`).text("0");
+      $(`.player-${activePlayer}`).removeAttr("id", "player-active");
+      $(`.player-${activePlayer + 1}`).attr("id", "player-active");
+      $("#announce").text("Player 2 Turn!").css("color", "gold");
+      activePlayer += 1;
+    } else if (activePlayer === 1) {
+      currentScore = 0;
+      $(`.current-player${activePlayer}`).text("0");
+      $(`.player-${activePlayer}`).removeAttr("id", "player-active");
+      $(`.player-${activePlayer + 1}`).attr("id", "player-active");
+      $("#announce").text("Player 3 Turn!").css("color", "lawngreen");
+      activePlayer += 1;
+    } else if (activePlayer === 2) {
+      currentScore = 0;
+      $(`.current-player${activePlayer}`).text("0");
+      $(`.player-${activePlayer}`).removeAttr("id", "player-active");
+      $(`.player-${activePlayer + 1}`).attr("id", "player-active");
+      $("#announce").text("Player 4 Turn!").css("color", "mediumblue");
+      activePlayer += 1;
+    } else if (activePlayer === 3) {
+      currentScore = 0;
+      $(`.current-player${activePlayer}`).text("0");
+      $(`.player-${activePlayer}`).removeAttr("id", "player-active");
+      $(`.player-0`).attr("id", "player-active");
+      $("#announce").text("Player 1 Turn!").css("color", "red");
+      activePlayer = 0;
+    }
+  };
+
+  const switchPlayer = function () {
+    if (players_playing === 2) {
+      switchPlayerfor2();
+    } else if (players_playing === 3) {
+      switchPlayerfor3();
+    } else {
+      switchPlayerfor4();
     }
   };
 
@@ -138,11 +242,17 @@ const main = function () {
   //=============================== USER INPUTS ================================
 
   // select game Mode.
+  $("#prestart-image2").hide();
+  $("#dice2").hide();
   $(".pig-mode").on("click", pigMode);
   $(".bigpig-mode").on("click", bigPigMode);
 
   // select number of players.
-  $("");
+  $(".player2").on("click", choose2player);
+  $(".player3").on("click", choose3player);
+  $(".player4").on("click", choose4player);
+  $(".player-2").hide();
+  $(".player-3").hide();
   // begin game.
   $("#show-game-page").hide();
   $("#boom").hide();
