@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>Pig Game, does lady luck favour you today?</title>
     <!--     CSS stylesheet -->
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="main_mvp.css" />
     <!--     remember, jQuery must come first -->
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -13,17 +13,19 @@
       defer
     ></script>
     <!--     now your code -->
-    <script src="app.js" charset="utf-8" defer></script>
+    <script src="mvp.js" charset="utf-8" defer></script>
   </head>
   <body>
     <h1 id="game-name">PIG GAME</h1>
     <h2 id="announce">May the odds be in your favour...</h2>
     <div id="show-game-page">
       <p id="prestart-image">Roll dice to start!</p>
-      <img id="dice1" src="./dice/dice-1.jpg" alt="Playing dice" class="dice" />
-      <div id="boom">
-        <p>💥 BOOM! 💥</p>
-      </div>
+      <img
+        id="dice1"
+        src="../dice/dice-1.jpg"
+        alt="Playing dice"
+        class="dice"
+      />
       <div class="container">
         <div class="player-0" id="player-active">
           <h2 class="player-description">Player 1</h2>
@@ -55,27 +57,6 @@
       </div>
       <div id="player-reset" class="button">
         <p>🔄 Restart</p>
-      </div>
-    </div>
-    <div id="show-intro-page">
-      <h1 id="intro-announce">Choose players and game mode!</h1>
-      <div class="show-player-selection">
-        <ul id="player-selector">
-          Number of Players -
-          <li class="2-player">2</li>
-          <li class="3-player">3</li>
-          <li class="4-player">4</li>
-        </ul>
-      </div>
-      <div class="show-mode-selection">
-        <ul id="mode-selector">
-          Game Mode -
-          <li class="pig-mode">Pig</li>
-          <li class="bigpig-mode">Big Pig</li>
-        </ul>
-      </div>
-      <div id="to-start">
-        <p class="start-game">Start Game!</p>
       </div>
     </div>
   </body>

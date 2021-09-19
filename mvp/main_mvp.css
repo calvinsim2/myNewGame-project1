@@ -1,6 +1,6 @@
 body {
   text-align: center;
-  background: url("./other/pig.jpg");
+  background: url("../other/pig.jpg");
   height: 100vh;
   background-size: cover;
 }
@@ -142,24 +142,6 @@ body {
   font-weight: bold;
   display: block;
   height: 100px;
-}
-
-#boom {
-  position: absolute;
-  left: 40%;
-  top: 400px;
-  height: 125px;
-  width: 300px;
-  color: black;
-  background: firebrick;
-  border: 1px black solid;
-  border-radius: 10px;
-  text-align: center;
-  padding-top: 15px;
-  font-size: 30px;
-  font-weight: bold;
-  margin: 0;
-  z-index: 2;
 }
 
 /*=============================================================================================*/
