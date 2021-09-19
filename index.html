@@ -20,11 +20,14 @@
     <h2 id="announce">May the odds be in your favour...</h2>
     <div id="show-game-page">
       <p id="prestart-image">Roll dice to start!</p>
+      <p id="prestart-image2">Roll dice to start!</p>
       <img id="dice1" src="./dice/dice-1.jpg" alt="Playing dice" class="dice" />
+      <img id="dice2" src="./dice/dice-1.jpg" alt="Playing dice" class="dice" />
       <div id="boom">
         <p>💥 BOOM! 💥</p>
       </div>
       <div class="container">
+        <!-- Player 1 -->
         <div class="player-0" id="player-active">
           <h2 class="player-description">Player 1</h2>
           <article id="total-score-player0">
@@ -35,6 +38,7 @@
             <p class="current-player0">0</p>
           </article>
         </div>
+        <!-- Player 2 -->
         <div class="player-1">
           <h2 class="player-description">Player 2</h2>
           <article id="total-score-player1">
@@ -43,6 +47,28 @@
           <article id="current-score-player1">
             <p>Current:</p>
             <p class="current-player1">0</p>
+          </article>
+        </div>
+        <!-- Player 3 -->
+        <div class="player-2">
+          <h2 class="player-description">Player 3</h2>
+          <article id="total-score-player2">
+            <h1>0</h1>
+          </article>
+          <article id="current-score-player2">
+            <p>Current:</p>
+            <p class="current-player2">0</p>
+          </article>
+        </div>
+        <!-- Player 4 -->
+        <div class="player-3">
+          <h2 class="player-description">Player 4</h2>
+          <article id="total-score-player3">
+            <h1>0</h1>
+          </article>
+          <article id="current-score-player3">
+            <p>Current:</p>
+            <p class="current-player3">0</p>
           </article>
         </div>
       </div>
@@ -62,9 +88,9 @@
       <div class="show-player-selection">
         <ul id="player-selector">
           Number of Players -
-          <li class="2-player">2</li>
-          <li class="3-player">3</li>
-          <li class="4-player">4</li>
+          <li class="player2">2</li>
+          <li class="player3">3</li>
+          <li class="player4">4</li>
         </ul>
       </div>
       <div class="show-mode-selection">

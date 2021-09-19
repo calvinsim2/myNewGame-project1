@@ -20,6 +20,14 @@ body {
   width: 100px;
 }
 
+#dice2 {
+  position: absolute;
+  left: 47%;
+  top: 300px;
+  height: 100px;
+  width: 100px;
+}
+
 #announce {
   margin: auto;
   padding: 0;
@@ -43,6 +51,21 @@ body {
   z-index: 2;
 }
 
+#prestart-image2 {
+  position: absolute;
+  left: 47%;
+  top: 270px;
+  height: 105px;
+  width: 105px;
+  background: violet;
+  font-size: 30px;
+  font-style: italic;
+  font-weight: bold;
+  z-index: 2;
+}
+
+/*-----------------------------------Player details screen --------------------------------------------*/
+
 .container {
   display: relative;
   background: pink;
@@ -54,6 +77,7 @@ body {
   font-style: italic;
 }
 
+/* Player 1 */
 .player-0 {
   background: rgb(219, 129, 129);
   padding: 0;
@@ -68,6 +92,7 @@ body {
   background: rgb(255, 0, 0);
 }
 
+/* Player 2 */
 .player-1 {
   background: rgb(202, 193, 138);
   padding: 0;
@@ -82,6 +107,39 @@ body {
   background: rgb(255, 215, 0);
 }
 
+/* Player 3 */
+
+.player-2 {
+  background: rgb(172, 197, 147);
+  padding: 0;
+  border-radius: 10px;
+  width: 50%;
+  height: 350px;
+  float: left;
+  font-size: 30px;
+}
+
+.player-2#player-active {
+  background: rgb(124, 252, 0);
+}
+
+/* Player 4 */
+
+.player-3 {
+  background: rgb(154, 154, 223);
+  padding: 0;
+  border-radius: 10px;
+  width: 50%;
+  height: 350px;
+  float: left;
+  font-size: 30px;
+}
+
+.player-3#player-active {
+  background: rgb(0, 0, 205);
+}
+
+/*------------------------------------------------------------------------------------------------*/
 .button {
   padding: 0;
   width: 100px;
@@ -123,7 +181,9 @@ body {
 }
 
 #current-score-player0,
-#current-score-player1 {
+#current-score-player1,
+#current-score-player2,
+#current-score-player3 {
   background: #f4f4f4;
   text-align: center;
   border: 2px pink solid;
@@ -138,7 +198,9 @@ body {
 }
 
 #total-score-player0,
-#total-score-player1 {
+#total-score-player1,
+#total-score-player2,
+#total-score-player3 {
   font-weight: bold;
   display: block;
   height: 100px;
@@ -203,6 +265,7 @@ body {
 
 .start-game:hover {
   background: red;
+  cursor: pointer;
 }
 
 li {
@@ -215,6 +278,7 @@ li {
   border-radius: 10px;
   width: 90px;
   background: #b0c4de;
+  font-style: italic;
 }
 
 li:hover {
@@ -222,11 +286,13 @@ li:hover {
   cursor: pointer;
 }
 
-li:active {
+.pig-mode {
   background: yellow;
-  cursor: pointer;
 }
 
+.player2 {
+  background: yellow;
+}
 /* #player-selector {
   display: flex;
   flex-direction: column;
