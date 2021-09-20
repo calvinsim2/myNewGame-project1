@@ -7,7 +7,9 @@ const main = function () {
   let currentScore;
   let activePlayer;
   let players_playing = 2;
+  let players_name = ["Player 1", "Player 2", "Player 3", "Player 4"];
 
+  // =========================display About(How to play) for users =====================================
   const showAbout = function () {
     $("#about-description").show();
     $("#show-intro-page").hide();
@@ -16,6 +18,28 @@ const main = function () {
   const offAbout = function () {
     $("#about-description").hide();
     $("#show-intro-page").show();
+  };
+
+  // ========================= Rename players =====================================
+  const setPlayer1Name = function () {
+    $("#name-player0").text($("#player0-name").val());
+    const player1_name = $("#name-player0").text();
+    players_name[0] = player1_name;
+  };
+  const setPlayer2Name = function () {
+    $("#name-player1").text($("#player1-name").val());
+    const player2_name = $("#name-player1").text();
+    players_name[1] = player2_name;
+  };
+  const setPlayer3Name = function () {
+    $("#name-player2").text($("#player2-name").val());
+    const player3_name = $("#name-player2").text();
+    players_name[2] = player3_name;
+  };
+  const setPlayer4Name = function () {
+    $("#name-player3").text($("#player3-name").val());
+    const player4_name = $("#name-player3").text();
+    players_name[3] = player4_name;
   };
 
   //================ GAME MODE ===========================================================
@@ -70,6 +94,7 @@ const main = function () {
     $("#show-game-page").show();
     $("#show-intro-page").hide();
     $("#about-description").hide();
+    $("#announce").text(`${players_name[0]} Turn!`).css("color", "red");
     game_on = true;
     win_points = 10;
     total_scores = [0, 0, 0, 0];
@@ -85,9 +110,7 @@ const main = function () {
     game_on = false;
     for (let i = 0; i < 4; i++) {
       if (i !== activePlayer) {
-        $(`.player-${i}`).fadeIn(400, function () {
-          $(`.player-${i}`).css("opacity", "1");
-        });
+        $(`.player-${i}`).css("opacity", "1");
       }
     }
     activePlayer = 0;
@@ -127,7 +150,7 @@ const main = function () {
     $(`.current-player${activePlayer}`).text("0");
     $(`.player-${activePlayer}`).removeAttr("id", "player-active");
     $(`.player-0`).attr("id", "player-active");
-    $("#announce").text("Player 1 Turn!").css("color", "red");
+    $("#announce").text(`${players_name[0]} Turn!`).css("color", "red");
     activePlayer = 0;
   };
   const switchtoPlayer2 = function () {
@@ -135,7 +158,7 @@ const main = function () {
     $(`.current-player${activePlayer}`).text("0");
     $(`.player-${activePlayer}`).removeAttr("id", "player-active");
     $(`.player-${activePlayer + 1}`).attr("id", "player-active");
-    $("#announce").text("Player 2 Turn!").css("color", "gold");
+    $("#announce").text(`${players_name[1]} Turn!`).css("color", "gold");
     activePlayer += 1;
   };
   const switchtoPlayer3 = function () {
@@ -143,7 +166,7 @@ const main = function () {
     $(`.current-player${activePlayer}`).text("0");
     $(`.player-${activePlayer}`).removeAttr("id", "player-active");
     $(`.player-${activePlayer + 1}`).attr("id", "player-active");
-    $("#announce").text("Player 3 Turn!").css("color", "lawngreen");
+    $("#announce").text(`${players_name[2]} Turn!`).css("color", "lawngreen");
     activePlayer += 1;
   };
   const switchtoPlayer4 = function () {
@@ -151,7 +174,7 @@ const main = function () {
     $(`.current-player${activePlayer}`).text("0");
     $(`.player-${activePlayer}`).removeAttr("id", "player-active");
     $(`.player-${activePlayer + 1}`).attr("id", "player-active");
-    $("#announce").text("Player 4 Turn!").css("color", "mediumblue");
+    $("#announce").text(`${players_name[3]} Turn!`).css("color", "mediumblue");
     activePlayer += 1;
   };
 
@@ -203,17 +226,17 @@ const main = function () {
   const playerPass = function () {
     if (game_on) {
       total_scores[`${activePlayer}`] += currentScore;
-      $(`#total-score-player${activePlayer}`).text(
-        `${total_scores[activePlayer]}`
-      );
+      $(`#total-score-player${activePlayer}`)
+        .text(`${total_scores[activePlayer]}`)
+        .css("font-size", "40px");
 
       if (total_scores[`${activePlayer}`] >= win_points) {
         $("#announce").text(
-          `🎉 Player ${activePlayer + 1} wins! Congatulations! 🎉`
+          `🎉 ${players_name[activePlayer]} wins! Congatulations! 🎉`
         );
         for (let i = 0; i < 4; i++) {
           if (i !== activePlayer) {
-            $(`.player-${i}`).fadeTo(400, 0.4);
+            $(`.player-${i}`).css("opacity", "0.4");
           }
         }
         currentScore = 0;
@@ -263,52 +286,40 @@ const main = function () {
 
   //=============================== USER INPUTS ================================
 
-  // select game Mode.
+  // event listener - check if player decide to change their names
+  $("#player0-name").on("change", setPlayer1Name);
+  $("#player1-name").on("change", setPlayer2Name);
+  $("#player2-name").on("change", setPlayer3Name);
+  $("#player3-name").on("change", setPlayer4Name);
+  // event listener - select game Mode.
   $("#prestart-image2").hide();
   $("#dice2").hide();
   $(".pig-mode").on("click", pigMode);
   $(".bigpig-mode").on("click", bigPigMode);
 
-  // select number of players.
+  // event listener - select number of players.
   $(".player2").on("click", choose2player);
   $(".player3").on("click", choose3player);
   $(".player4").on("click", choose4player);
   $(".player-2").hide();
   $(".player-3").hide();
-  // begin game.
-  $("#show-game-page").hide();
-  $("#boom").hide();
-  $(".start-game").on("click", startGame);
-  // during game.
-  $("#player-reset").on("click", restartGame);
-  $("#player-roll").on("click", diceRoll);
-  $("#player-pass").on("click", playerPass);
 
+  // event listener - to show about (how to play).
   $(".about").on("click", showAbout);
   $(".off-about").on("click", offAbout);
   $("#about-description").hide();
+
+  // event listener - begin game.
+  $("#show-game-page").hide();
+  $("#boom").hide();
+  $(".start-game").on("click", startGame);
+  // event listener - during game.
+  $("#player-reset").on("click", restartGame);
+  $("#player-roll").on("click", diceRoll);
+  $("#player-pass").on("click", playerPass);
 };
 
 $(main);
 
 //========================================================================================================================
 // alibaba test codes come here.
-
-// const playerPass = function () {
-//   if (game_on) {
-//     total_scores[`${activePlayer}`] += currentScore;
-//     $(`#total-score-player${activePlayer}`).text(
-//       `${total_scores[activePlayer]}`
-//     );
-
-//     if (total_scores[`${activePlayer}`] >= win_points) {
-//       $("#announce").text(
-//         `🎉 Player ${activePlayer + 1} wins! Congatulations! 🎉`
-//       );
-//       currentScore = 0;
-//       game_on = false;
-//     } else {
-//       switchPlayer();
-//     }
-//   }
-// };

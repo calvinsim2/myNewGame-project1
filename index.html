@@ -29,9 +29,9 @@
       <div class="container">
         <!-- Player 1 -->
         <div class="player-0" id="player-active">
-          <h2 class="player-description">Player 1</h2>
+          <p id="name-player0" class="player-description">Player 1</p>
           <article id="total-score-player0">
-            <h1>0</h1>
+            <p>0</p>
           </article>
           <article id="current-score-player0">
             <p>Current:</p>
@@ -40,9 +40,9 @@
         </div>
         <!-- Player 2 -->
         <div class="player-1">
-          <h2 class="player-description">Player 2</h2>
+          <p id="name-player1" class="player-description">Player 2</p>
           <article id="total-score-player1">
-            <h1>0</h1>
+            <p>0</p>
           </article>
           <article id="current-score-player1">
             <p>Current:</p>
@@ -51,9 +51,9 @@
         </div>
         <!-- Player 3 -->
         <div class="player-2">
-          <h2 class="player-description">Player 3</h2>
+          <p id="name-player2" class="player-description">Player 3</p>
           <article id="total-score-player2">
-            <h1>0</h1>
+            <p>0</p>
           </article>
           <article id="current-score-player2">
             <p>Current:</p>
@@ -62,9 +62,9 @@
         </div>
         <!-- Player 4 -->
         <div class="player-3">
-          <h2 class="player-description">Player 4</h2>
+          <p id="name-player3" class="player-description">Player 4</p>
           <article id="total-score-player3">
-            <h1>0</h1>
+            <p>0</p>
           </article>
           <article id="current-score-player3">
             <p>Current:</p>
@@ -85,6 +85,18 @@
     </div>
     <div id="show-intro-page">
       <h1 id="intro-announce">Choose players and game mode!</h1>
+      <div class="playernamechoose1">
+        <label for="name" class="select-name">Player 1 Name:</label>
+        <input type="text" id="player0-name" />
+        <label for="name" class="select-name">Player 2 Name:</label>
+        <input type="text" id="player1-name" />
+      </div>
+      <div class="playernamechoose2">
+        <label for="name" class="select-name">Player 3 Name:</label>
+        <input type="text" id="player2-name" />
+        <label for="name" class="select-name">Player 4 Name:</label>
+        <input type="text" id="player3-name" />
+      </div>
       <div class="show-player-selection">
         <ul id="player-selector">
           Number of Players -
@@ -106,21 +118,23 @@
       </div>
     </div>
     <section id="about-description">
-      Welcome to PIG game! Nope, I know what you are thinking, there are no pigs
-      in this game.<br />
+      Welcome to PIG game! Nope, I know what you are thinking, but sadly, there
+      are no pigs involved in this game.<br />
       <span id="game-rule">🎲 Game Rules 🎲</span><br />
       <ul>
         <li id="rule-description">
           Each player will take turn to roll the dice, if a 1 is rolled, their
           current score and turns are forefited!
         </li>
+        <li id="rule-description">In pig mode, only one dice is used.</li>
+        <li id="rule-description">In big pig mode, two dices are used.</li>
         <li id="rule-description">
           Current score will be passed into total score if a player choses to
           pass their turn
         </li>
         <li id="rule-description">
           Total score is safe, except in BIG PIG mode, if a double 1 are rolled,
-          the total score goes back to 0!
+          the total score is to 0!
         </li>
         <li id="rule-description">
           First player to reach the desired point wins!

@@ -1,13 +1,20 @@
+/* box margin*/
+/* text size*/
+/* color contrast*/
+
 body {
   text-align: center;
   background: url("./other/pig.jpg");
-  height: 100vh;
+  margin: 0 0;
+  padding: 0;
   background-size: cover;
+  background-position: 0 0;
+  background-repeat: no-repeat;
 }
 
 #game-name {
   font-family: "Nunito", sans-serif;
-  font-size: 40px;
+  font-size: 45px;
   font-style: italic;
   color: rgb(255, 99, 71);
 }
@@ -71,19 +78,26 @@ body {
   background: pink;
   border: 1px pink solid;
   border-radius: 10px;
+  width: 99vw;
 }
 
 .player-description {
   font-style: italic;
+  font-weight: bold;
+  font-size: 40px;
 }
 
 /* Player 1 */
 .player-0 {
+  position: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
   background: rgb(219, 129, 129);
   padding: 0;
   border-radius: 10px;
   width: 50%;
-  height: 350px;
+  height: 335px;
   float: left;
   font-size: 30px;
 }
@@ -97,7 +111,7 @@ body {
   background: rgb(202, 193, 138);
   padding: 0;
   border-radius: 10px;
-  height: 350px;
+  height: 335px;
   width: 50%;
   float: right;
   font-size: 30px;
@@ -114,7 +128,7 @@ body {
   padding: 0;
   border-radius: 10px;
   width: 50%;
-  height: 350px;
+  height: 335px;
   float: left;
   font-size: 30px;
 }
@@ -130,7 +144,7 @@ body {
   padding: 0;
   border-radius: 10px;
   width: 50%;
-  height: 350px;
+  height: 335px;
   float: left;
   font-size: 30px;
 }
@@ -194,7 +208,8 @@ body {
   font-weight: bold;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 #total-score-player0,
@@ -204,6 +219,7 @@ body {
   font-weight: bold;
   display: block;
   height: 100px;
+  font-size: 40px;
 }
 
 #boom {
@@ -227,8 +243,17 @@ body {
 /*============================ INTRO PAGE CSS =================================================*/
 
 #show-intro-page {
-  margin-top: 0px;
+  margin: 0px auto;
+  padding: 0px;
+  width: 800px;
+  border: 2px black solid;
+  border-radius: 10px;
   background: -webkit-radial-gradient(
+    center,
+    rgba(30, 144, 255, 0.4),
+    rgba(30, 144, 255, 1)
+  );
+  background: -moz-radial-gradient(
     center,
     rgba(30, 144, 255, 0.4),
     rgba(30, 144, 255, 1)
@@ -313,6 +338,32 @@ li:hover,
 .player2 {
   background: yellow;
 }
+
+#player0-name,
+#player1-name,
+#player2-name,
+#player3-name {
+  color: red;
+  background: lime;
+  font-weight: bold;
+  border: 2px black solid;
+  border-radius: 7px;
+  height: 25px;
+}
+
+.select-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.playernamechoose1,
+.playernamechoose2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 10px auto;
+}
 /*=============================== About Page CSS ===================================== */
 
 #about-description {
@@ -330,7 +381,6 @@ li:hover,
 
 #game-rule {
   font-size: 40px;
-  text-align: center;
 }
 
 .off-about {
@@ -341,7 +391,7 @@ li:hover,
   border-radius: 10px;
   width: 100px;
   margin: auto;
-  text-align: center;
+  /* text-align: center; */
   background: #f4f4f4;
 }
 
