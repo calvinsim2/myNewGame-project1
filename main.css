@@ -136,10 +136,10 @@ body {
 }
 
 .player-3#player-active {
-  background: rgb(0, 0, 205);
+  background: rgb(40, 40, 235);
 }
 
-/*------------------------------------------------------------------------------------------------*/
+/*----------------------------------In game mode buttons & scores ------------------------------------------*/
 .button {
   padding: 0;
   width: 100px;
@@ -224,7 +224,7 @@ body {
   z-index: 2;
 }
 
-/*=============================================================================================*/
+/*============================ INTRO PAGE CSS =================================================*/
 
 #show-intro-page {
   margin-top: 0px;
@@ -261,6 +261,7 @@ body {
   border-radius: 10px;
   width: 200px;
   background: #b0c4de;
+  animation: start-game 2s ease-out infinite;
 }
 
 .start-game:hover {
@@ -268,22 +269,41 @@ body {
   cursor: pointer;
 }
 
-li {
+@keyframes start-game {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.2, 1.2);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+li,
+.about {
   list-style: none;
   display: inline-block;
   margin: 10px 20px;
-  /* margin-left: 15px; */
+
   padding: 0;
   border: 2px black solid;
   border-radius: 10px;
-  width: 90px;
+  width: 100px;
   background: #b0c4de;
   font-style: italic;
 }
 
-li:hover {
+li:hover,
+.about:hover {
   background: red;
   cursor: pointer;
+}
+
+.about {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .pig-mode {
@@ -293,24 +313,53 @@ li:hover {
 .player2 {
   background: yellow;
 }
-/* #player-selector {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin-left: 0px;
-  font-weight: bold;
-  font-size: 20px;
-}
+/*=============================== About Page CSS ===================================== */
 
-li {
-  list-style: none;
-  display: inline-block;
-  margin: 10px auto;
-  margin-left: 15px;
+#about-description {
+  font-size: 25px;
+  font-weight: bold;
   padding: 0;
   border: 2px black solid;
   border-radius: 10px;
-  width: 70px;
-} */
+  width: 800px;
+  margin: auto;
+
+  background: #b0c4de;
+  font-style: italic;
+}
+
+#game-rule {
+  font-size: 40px;
+  text-align: center;
+}
+
+.off-about {
+  font-size: 25px;
+  font-weight: bold;
+  padding: 0;
+  border: 2px black solid;
+  border-radius: 10px;
+  width: 100px;
+  margin: auto;
+  text-align: center;
+  background: #f4f4f4;
+}
+
+.off-about:hover {
+  background: red;
+  cursor: pointer;
+}
+
+#rule-description {
+  display: block;
+  border: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: square;
+}
+
+#rule-description:hover {
+  cursor: none;
+  background: none;
+}
