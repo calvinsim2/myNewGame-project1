@@ -34,25 +34,23 @@ const main = function () {
   };
 
   // ========================= Rename players =====================================
+
+  const setName = function (name, input) {
+    $(name).text($(input).val());
+    const player_name = $(name).text();
+    return player_name;
+  };
   const setPlayer1Name = function () {
-    $("#name-player0").text($("#player0-name").val());
-    const player1_name = $("#name-player0").text();
-    players_name[0] = player1_name;
+    players_name[0] = setName($("#name-player0"), "#player0-name");
   };
   const setPlayer2Name = function () {
-    $("#name-player1").text($("#player1-name").val());
-    const player2_name = $("#name-player1").text();
-    players_name[1] = player2_name;
+    players_name[1] = setName($("#name-player1"), "#player1-name");
   };
   const setPlayer3Name = function () {
-    $("#name-player2").text($("#player2-name").val());
-    const player3_name = $("#name-player2").text();
-    players_name[2] = player3_name;
+    players_name[2] = setName($("#name-player2"), "#player2-name");
   };
   const setPlayer4Name = function () {
-    $("#name-player3").text($("#player3-name").val());
-    const player4_name = $("#name-player3").text();
-    players_name[3] = player4_name;
+    players_name[3] = setName($("#name-player3"), "#player3-name");
   };
 
   //================ GAME MODE ===========================================================
@@ -127,7 +125,7 @@ const main = function () {
 
   const startGame = function () {
     game_on = true;
-    win_points = 100;
+    win_points = 20;
     currentScore = 0;
     activePlayer = 0;
     // insert total scores for playing players
@@ -142,6 +140,7 @@ const main = function () {
     $("#show-game-page").show();
     $("#show-intro-page").hide();
     $("#about-description").hide();
+    $(".winning-points").text(win_points);
     $("#announce").text(`${players_name[activePlayer]}'s Turn!`);
   };
 
@@ -217,12 +216,47 @@ const main = function () {
     }
   };
 
-  //----------- Call switching function ----------------------------
-  const switchPlayer = function () {
-    switchPlayerFunction(players_playing, activePlayer);
+  //======================== In-game button functions ================================================
+  const gambleAccepted = function () {
+    console.log(
+      `Player${activePlayer + 1} current total score is ${
+        total_scores[activePlayer]
+      }`
+    );
+    const chance_roll = Math.trunc(Math.random() * 1 + 1);
+    if (chance_roll !== 1) {
+      total_scores[activePlayer] += 10;
+      console.log("Lucky you!");
+      $(`#total-score-player${activePlayer}`).text(
+        `${total_scores[activePlayer]}`
+      );
+      $(".flashpointevent").hide();
+    } else {
+      total_scores[activePlayer] = Math.trunc(total_scores[activePlayer] / 2);
+      console.log("Too bad!");
+      $(`#total-score-player${activePlayer}`).text(
+        `${total_scores[activePlayer]}`
+      );
+      $(".flashpointevent").hide();
+    }
+  };
+  const gambleDeclined = function () {
+    $(".flashpointevent").hide();
+  };
+  const flashpointEvent = function () {
+    chance_player[activePlayer] = 0;
+    $(".flashpointevent").show();
   };
 
-  //======================== In-game button functions ================================================
+  const checkWin = function (name, current_player, numberOfPlayer) {
+    $("#announce").text(`🎉 ${name[current_player]} wins! Congatulations! 🎉`);
+    for (let i = 0; i < numberOfPlayer; i++) {
+      if (i !== current_player) {
+        $(`.player-${i}`).css("opacity", "0.4");
+      }
+    }
+  };
+
   const playerPass = function () {
     if (game_on) {
       total_scores[`${activePlayer}`] += currentScore;
@@ -232,21 +266,38 @@ const main = function () {
       );
 
       if (total_scores[`${activePlayer}`] >= win_points) {
-        $("#announce").text(
-          `🎉 ${players_name[activePlayer]} wins! Congatulations! 🎉`
-        );
-        for (let i = 0; i < players_playing; i++) {
-          if (i !== activePlayer) {
-            $(`.player-${i}`).css("opacity", "0.4");
-          }
-        }
+        checkWin(players_name, activePlayer, players_playing);
         currentScore = 0;
         game_on = false;
       } else {
-        switchPlayer();
+        switchPlayerFunction(players_playing, activePlayer);
       }
     }
   };
+  // const playerPass = function () {
+  //   if (game_on) {
+  //     total_scores[`${activePlayer}`] += currentScore;
+
+  //     $(`#total-score-player${activePlayer}`).text(
+  //       `${total_scores[activePlayer]}`
+  //     );
+
+  //     if (total_scores[`${activePlayer}`] >= win_points) {
+  //       $("#announce").text(
+  //         `🎉 ${players_name[activePlayer]} wins! Congatulations! 🎉`
+  //       );
+  //       for (let i = 0; i < players_playing; i++) {
+  //         if (i !== activePlayer) {
+  //           $(`.player-${i}`).css("opacity", "0.4");
+  //         }
+  //       }
+  //       currentScore = 0;
+  //       game_on = false;
+  //     } else {
+  //       switchPlayerFunction(players_playing, activePlayer);
+  //     }
+  //   }
+  // };
 
   const diceRoll = function () {
     if (game_on) {
@@ -254,13 +305,20 @@ const main = function () {
         let dice_value = Math.trunc(Math.random() * 6 + 1);
         $("#dice1").attr("src", `./dice/dice-${dice_value}.jpg`);
         $("#prestart-image").hide();
+        console.log(total_scores);
+        console.log(total_scores[activePlayer]);
         if (dice_value !== 1) {
           currentScore += dice_value;
           $(`.current-player${activePlayer}`).text(`${currentScore}`);
-          // trigger flashpoint event here.
+          if (
+            total_scores[activePlayer] >= win_points / 2 &&
+            chance_player[activePlayer] > 0
+          ) {
+            flashpointEvent();
+          }
         } else {
           rolledAOne();
-          switchPlayer();
+          switchPlayerFunction(players_playing, activePlayer);
         }
       } else if (current_game_mode === game_mode[1]) {
         let dice_value = Math.trunc(Math.random() * 6 + 1);
@@ -280,7 +338,7 @@ const main = function () {
           $("#boom").text("💥 BOOM! 💥 SCORE RESET!");
         } else if (dice_value === 1 || dice_value2 === 1) {
           rolledAOne();
-          switchPlayer();
+          switchPlayerFunction(players_playing, activePlayer);
         }
       }
     }
@@ -314,42 +372,18 @@ const main = function () {
   // event listener - begin game.
   $("#show-game-page").hide();
   $("#boom").hide();
+  $(".flashpointevent").hide();
   $(".start-game").on("click", startGame);
   // event listener - during game.
   $("#player-reset").on("click", restartGame);
   $("#player-roll").on("click", diceRoll);
   $("#player-pass").on("click", playerPass);
+  // event listener - gambling.
+  $(".accept-gamble").on("click", gambleAccepted);
+  $(".decline-gamble").on("click", gambleDeclined);
 };
 
 $(main);
 
 //========================================================================================================================
 // alibaba test codes come here.
-
-// if (
-//   total_scores[activePlayer] >= win_points / 2 &&
-//   chance_player[activePlayer] > 0
-// ) {
-//   flashpointEvent();
-// }
-
-// const gambleAccepted = function (player_total) {
-//   const chance_roll = Math.trunc(Math.random() * 4 + 1);
-//   if (chance_roll !== 1) {
-//     player_total += 10;
-//     return player_total;
-//   } else {
-//     player_total = player_total / 2;
-//     return player_total;
-//   }
-// };
-// const gambleDeclined = function () {
-//   $(".flashpointevent").hide();
-// };
-
-// const flashpointEvent = function () {
-//   chance_player[activePlayer] = 0;
-//   $(".flashpointevent").show();
-//   $(".accept-gamble").on("click", gambleAccepted);
-//   $(".decline-gamble").on("click", gambleDeclined);
-// };
