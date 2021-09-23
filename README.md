@@ -30,9 +30,9 @@ Pass - If a player chooses to pass, any accumulated current score will be passed
 
 Pig mode (Classic Mode) - The classic mode of pig's game, only one dice is used in the game.
 
-Two-Pig mode - In this mode, there are two dices being used. In two-pig mode, player's decision are the same as
+Two-Dice Pig mode - In this mode, there are two dices being used. In two-pig mode, player's decision are the same as
 explained in the classic mode.
-However, in two-pig-mode, should a player rolls a 1 in EITHER of their dice, they will lose their
+However, in two-dice pig-mode, should a player rolls a 1 in EITHER of their dice, they will lose their
 current accumulated score in their turn, and loses their turn.
 If the player rolls a DOUBLE 1, their TOTAL score will be resetted to 0! Ouch!
 
