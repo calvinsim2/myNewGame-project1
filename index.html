@@ -140,29 +140,38 @@
       Welcome to PIG game! Nope, I know what you are thinking, but sadly, there
       are no pigs involved in this game.<br />
       <span id="game-rule">🎲 Game Rules 🎲</span><br />
-      <ul>
-        <li id="rule-description">
-          Each player will take turn to roll the dice, if a 1 is rolled, their
-          current score and turns are forefited!
-        </li>
-        <li id="rule-description">In pig mode, only one dice is used.</li>
-        <li id="rule-description">
-          In two dice pig mode, two dices are used. If any of the dice is rolled
-          as a 1, the player loses their current score and have their turn
-          forefited.
-        </li>
-        <li id="rule-description">
-          Current score will be passed into total score if a player choses to
-          pass their turn
-        </li>
-        <li id="rule-description">
-          Total score is safe, except in TWO DICE PIG mode, if double 1's are
-          rolled, the total score is resetted to 0!
-        </li>
-        <li id="rule-description">
-          First player to reach the desired point wins(default is 100)!
-        </li>
-      </ul>
+      <div class="pig-description">
+        <div class="pig-description-header">🐷 Pig Mode 🐷</div>
+        <div class="pig-description-footer">
+          - Each player will take turn to roll the dice, if a 1 is rolled, their
+          current score and turns are forfeited!
+        </div>
+        <div class="pig-description-footer">
+          - Total score is safe in pig mode, unless it is reduced by gamble
+          event.
+        </div>
+      </div>
+      <div class="two-pig-description">
+        <div class="two-pig-description-header">🐷🐷 Two Pig Mode 🐷🐷</div>
+        <div class="two-pig-description-footer">
+          - Two dices are used in two pig mode, if either a dice shows a 1,
+          their current score and turns are forfeited!
+        </div>
+        <div class="two-pig-description-footer">
+          - If both dices shows a 1, the player's TOTAL score is resetted!
+        </div>
+      </div>
+      <div class="flashpoint-description">
+        <div class="flashpoint-description-header">⚡ Gamble Event ⚡</div>
+        <div class="flashpoint-description-footer">
+          - Each player is entitled to only one gamble event! Where they can
+          choose to gamble or decline it. Decide wisely!
+        </div>
+        <div class="flashpoint-description-footer">
+          - Gamble event will trigger when player reaches half the winning
+          points!
+        </div>
+      </div>
       <div class="off-about">Close</div>
     </section>
   </body>

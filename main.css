@@ -436,6 +436,13 @@ li:hover,
   background: none;
 }
 
+.pig-description,
+.two-pig-description,
+.flashpoint-description {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px 5px 5px 5px;
+}
 /*======================= Manipulate colours via jS======================================= */
 
 .bg-yellow {

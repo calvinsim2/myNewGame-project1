@@ -13,9 +13,11 @@ const main = function () {
   // let players_name = ["Player 1", "Player 2", "Player 3", "Player 4"];
   let players_name = ["Player 1", "Player 2", "Player 3", "Player 4"];
 
-  // class for background colour change.
+  // class for background/text colour change.
   const class_bg_yellow = "bg-yellow";
   const class_bg_grey = "bg-grey";
+  const class_text_teal = "text-teal";
+  const class_text_violet = "text-violet";
 
   //----------------------------- General CSS modification functions ---------------------------
   const addAndRemoveColour = function (element, class_add, class_remove) {
@@ -201,18 +203,18 @@ const main = function () {
 
   const gambleSuccessful = function () {
     $(".gamble-success").show();
-    $(`#total-score-player${activePlayer}`).addClass("text-teal");
+    $(`#total-score-player${activePlayer}`).addClass(class_text_teal);
     setTimeout(function () {
       $(".gamble-success").hide();
-      $(`#total-score-player${activePlayer}`).removeClass("text-teal");
+      $(`#total-score-player${activePlayer}`).removeClass(class_text_teal);
     }, 1500);
   };
   const gambleFailed = function () {
     $(".gamble-failed").show();
-    $(`#total-score-player${activePlayer}`).addClass("text-violet");
+    $(`#total-score-player${activePlayer}`).addClass(class_text_violet);
     setTimeout(function () {
       $(".gamble-failed").hide();
-      $(`#total-score-player${activePlayer}`).removeClass("text-violet");
+      $(`#total-score-player${activePlayer}`).removeClass(class_text_violet);
     }, 1500);
   };
 
@@ -222,6 +224,8 @@ const main = function () {
     $(`#prestart-image${qty}`).hide();
     return dice;
   };
+
+  // setInterval(function to do, time per execution)
 
   const gambleAccepted = function () {
     const chance_roll = determineDiceValue(4);
@@ -332,8 +336,6 @@ const main = function () {
       } else if (current_game_mode === game_mode[1]) {
         let dice_value = determineDiceValue(6, 1);
         let dice_value2 = determineDiceValue(6, 2);
-        console.log(`dice val1 is : ${dice_value}`);
-        console.log(`dice val2 is : ${dice_value2}`);
         if (dice_value !== 1 && dice_value2 !== 1) {
           currentScore += dice_value + dice_value2;
           $(`.current-player${activePlayer}`).text(`${currentScore}`);
@@ -341,7 +343,7 @@ const main = function () {
             total_scores[activePlayer] >= win_points / 2 &&
             chance_player[activePlayer] > 0
           ) {
-            flashpointEvent();
+            flashpointEvent(); // possible to add additional complexity
           }
         } else if (dice_value === 1 && dice_value2 === 1) {
           total_scores[activePlayer] = 0;
@@ -365,8 +367,8 @@ const main = function () {
   $("#player1-name").on("change", setPlayer2Name);
   $("#player2-name").on("change", setPlayer3Name);
   $("#player3-name").on("change", setPlayer4Name);
-  // event listener - select game Mode.
 
+  // event listener - select game Mode.
   $(".pig-mode").on("click", pigMode);
   $(".two-dice-pig-mode").on("click", twoDicePigMode);
 
@@ -377,15 +379,19 @@ const main = function () {
 
   hidePlayerDetails($(".player-2"), $(".select-name2"), $("#player2-name"));
   hidePlayerDetails($(".player-3"), $(".select-name3"), $("#player3-name"));
+
   // event listener - to show about (how to play).
   $(".about").on("click", showAbout);
   $(".off-about").on("click", offAbout);
+
   // event listener - begin game.
   $(".start-game").on("click", startGame);
+
   // event listener - during game.
   $("#player-reset").on("click", restartGame);
   $("#player-roll").on("click", diceRoll);
   $("#player-pass").on("click", playerPass);
+
   // event listener - gambling.
   $(".accept-gamble").on("click", gambleAccepted);
   $(".decline-gamble").on("click", gambleDeclined);
