@@ -43,9 +43,9 @@ body {
   width: 600px;
   border: 1px black solid;
   border-radius: 10px;
-  background: #778899;
+  background: #ffe4b5;
 }
-#prestart-image {
+#prestart-image1 {
   position: absolute;
   left: 47%;
   top: 140px;
@@ -457,6 +457,17 @@ li:hover,
   background: mediumblue;
 }
 
+.opacity-adjust {
+  opacity: 0.4;
+}
+
+.text-teal {
+  color: #008080;
+}
+.text-violet {
+  color: #ee82ee;
+}
+
 /*=============================== Gamble page ===================================== */
 
 .flashpointevent {
@@ -505,4 +516,40 @@ li:hover,
 .decline-gamble:hover {
   background: lightcoral;
   cursor: pointer;
+}
+
+.gamble-success {
+  position: absolute;
+  left: 40%;
+  top: 400px;
+  height: 100px;
+  width: 300px;
+  color: black;
+  background: greenyellow;
+  border: 1px black solid;
+  border-radius: 10px;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  z-index: 2;
+}
+
+.gamble-failed {
+  position: absolute;
+  left: 40%;
+  top: 400px;
+  height: 100px;
+  width: 350px;
+  color: black;
+  background: #ff1493;
+  border: 1px black solid;
+  border-radius: 10px;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  z-index: 1;
 }

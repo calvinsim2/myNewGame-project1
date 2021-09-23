@@ -22,15 +22,29 @@ const main = function () {
     element.addClass(class_add);
     element.removeClass(class_remove);
   };
+
+  //============================= Initialize game functions ===================================
+  // Hide/Show required displays in intro page and starting game
+
+  const initializeGame = function () {
+    $("#prestart-image2").hide();
+    $("#dice2").hide();
+    $("#about-description").hide();
+    $("#show-game-page").hide();
+    $("#boom").hide();
+    $(".flashpointevent").hide();
+    $(".gamble-success").hide();
+    $(".gamble-failed").hide();
+  };
   // =========================display About(How to play) for users =====================================
   const showAbout = function () {
-    $("#about-description").show();
     $("#show-intro-page").hide();
+    $("#about-description").fadeIn(1000);
   };
 
   const offAbout = function () {
+    $("#show-intro-page").fadeIn(1000);
     $("#about-description").hide();
-    $("#show-intro-page").show();
   };
 
   // ========================= Rename players =====================================
@@ -125,7 +139,7 @@ const main = function () {
 
   const startGame = function () {
     game_on = true;
-    win_points = 20;
+    win_points = 100;
     currentScore = 0;
     activePlayer = 0;
     // insert total scores for playing players
@@ -137,13 +151,12 @@ const main = function () {
       chance_player.push(1);
     }
 
-    $("#show-game-page").show();
     $("#show-intro-page").hide();
     $("#about-description").hide();
+    $("#show-game-page").fadeIn(1000);
     $(".winning-points").text(win_points);
     $("#announce").text(`${players_name[activePlayer]}'s Turn!`);
   };
-
   // reset scores for all players.
   // - jS set back to default conditions
   // - css set back to player 1
@@ -152,7 +165,7 @@ const main = function () {
     game_on = false;
     for (let i = 0; i < players_playing; i++) {
       if (i !== activePlayer) {
-        $(`.player-${i}`).css("opacity", "1");
+        $(`.player-${i}`).removeClass("opacity-adjust");
       }
     }
     activePlayer = 0;
@@ -166,23 +179,88 @@ const main = function () {
     total_scores = [];
     chance_player = [];
     $(`.player-${activePlayer}`).attr("id", "player-active");
-    $("#prestart-image").show();
+    $("#prestart-image1").show();
     if (current_game_mode === game_mode[1]) {
       $("#prestart-image2").show();
     }
 
     $("#show-game-page").hide();
-    $("#show-intro-page").show();
+    $("#show-intro-page").fadeIn(1000);
   };
 
   //================= IN-GAME FUNCTIONS================================================
   // notification if 1 is rolled.
+
   const rolledAOne = function () {
     $("#boom").show();
     setTimeout(function () {
       $("#boom").hide();
       $("#boom").text("💥 BOOM! 💥");
     }, 1500);
+  };
+
+  const gambleSuccessful = function () {
+    $(".gamble-success").show();
+    $(`#total-score-player${activePlayer}`).addClass("text-teal");
+    setTimeout(function () {
+      $(".gamble-success").hide();
+      $(`#total-score-player${activePlayer}`).removeClass("text-teal");
+    }, 1500);
+  };
+  const gambleFailed = function () {
+    $(".gamble-failed").show();
+    $(`#total-score-player${activePlayer}`).addClass("text-violet");
+    setTimeout(function () {
+      $(".gamble-failed").hide();
+      $(`#total-score-player${activePlayer}`).removeClass("text-violet");
+    }, 1500);
+  };
+
+  const determineDiceValue = function (range, qty) {
+    let dice = Math.trunc(Math.random() * range + 1);
+    $(`#dice${qty}`).attr("src", `./dice/dice-${dice}.jpg`);
+    $(`#prestart-image${qty}`).hide();
+    return dice;
+  };
+
+  const gambleAccepted = function () {
+    const chance_roll = determineDiceValue(4);
+    if (chance_roll !== 1) {
+      total_scores[activePlayer] += 10;
+      $(`#total-score-player${activePlayer}`).text(
+        `${total_scores[activePlayer]}`
+      );
+      $(".flashpointevent").hide();
+      gambleSuccessful();
+      if (total_scores[`${activePlayer}`] >= win_points) {
+        winCondition(players_name, activePlayer, players_playing);
+      }
+    } else {
+      total_scores[activePlayer] = Math.trunc(total_scores[activePlayer] / 2);
+      $(`#total-score-player${activePlayer}`).text(
+        `${total_scores[activePlayer]}`
+      );
+      $(".flashpointevent").hide();
+      gambleFailed();
+    }
+  };
+  const gambleDeclined = function () {
+    $(".flashpointevent").hide();
+  };
+  const flashpointEvent = function () {
+    chance_player[activePlayer] = 0;
+    $(".flashpointevent").show();
+  };
+
+  const winCondition = function (name, current_player, numberOfPlayer) {
+    $("#announce").text(`🎉 ${name[current_player]} wins! Congatulations! 🎉`);
+    for (let i = 0; i < numberOfPlayer; i++) {
+      if (i !== current_player) {
+        $(`.player-${i}`).addClass("opacity-adjust");
+      }
+    }
+    currentScore = 0;
+    game_on = false;
   };
 
   //=============== SWITCHING TURN FUNCTIONS =====================================================
@@ -217,45 +295,6 @@ const main = function () {
   };
 
   //======================== In-game button functions ================================================
-  const gambleAccepted = function () {
-    console.log(
-      `Player${activePlayer + 1} current total score is ${
-        total_scores[activePlayer]
-      }`
-    );
-    const chance_roll = Math.trunc(Math.random() * 1 + 1);
-    if (chance_roll !== 1) {
-      total_scores[activePlayer] += 10;
-      console.log("Lucky you!");
-      $(`#total-score-player${activePlayer}`).text(
-        `${total_scores[activePlayer]}`
-      );
-      $(".flashpointevent").hide();
-    } else {
-      total_scores[activePlayer] = Math.trunc(total_scores[activePlayer] / 2);
-      console.log("Too bad!");
-      $(`#total-score-player${activePlayer}`).text(
-        `${total_scores[activePlayer]}`
-      );
-      $(".flashpointevent").hide();
-    }
-  };
-  const gambleDeclined = function () {
-    $(".flashpointevent").hide();
-  };
-  const flashpointEvent = function () {
-    chance_player[activePlayer] = 0;
-    $(".flashpointevent").show();
-  };
-
-  const checkWin = function (name, current_player, numberOfPlayer) {
-    $("#announce").text(`🎉 ${name[current_player]} wins! Congatulations! 🎉`);
-    for (let i = 0; i < numberOfPlayer; i++) {
-      if (i !== current_player) {
-        $(`.player-${i}`).css("opacity", "0.4");
-      }
-    }
-  };
 
   const playerPass = function () {
     if (game_on) {
@@ -266,47 +305,17 @@ const main = function () {
       );
 
       if (total_scores[`${activePlayer}`] >= win_points) {
-        checkWin(players_name, activePlayer, players_playing);
-        currentScore = 0;
-        game_on = false;
+        winCondition(players_name, activePlayer, players_playing);
       } else {
         switchPlayerFunction(players_playing, activePlayer);
       }
     }
   };
-  // const playerPass = function () {
-  //   if (game_on) {
-  //     total_scores[`${activePlayer}`] += currentScore;
-
-  //     $(`#total-score-player${activePlayer}`).text(
-  //       `${total_scores[activePlayer]}`
-  //     );
-
-  //     if (total_scores[`${activePlayer}`] >= win_points) {
-  //       $("#announce").text(
-  //         `🎉 ${players_name[activePlayer]} wins! Congatulations! 🎉`
-  //       );
-  //       for (let i = 0; i < players_playing; i++) {
-  //         if (i !== activePlayer) {
-  //           $(`.player-${i}`).css("opacity", "0.4");
-  //         }
-  //       }
-  //       currentScore = 0;
-  //       game_on = false;
-  //     } else {
-  //       switchPlayerFunction(players_playing, activePlayer);
-  //     }
-  //   }
-  // };
 
   const diceRoll = function () {
     if (game_on) {
       if (current_game_mode === game_mode[0]) {
-        let dice_value = Math.trunc(Math.random() * 6 + 1);
-        $("#dice1").attr("src", `./dice/dice-${dice_value}.jpg`);
-        $("#prestart-image").hide();
-        console.log(total_scores);
-        console.log(total_scores[activePlayer]);
+        let dice_value = determineDiceValue(6, 1);
         if (dice_value !== 1) {
           currentScore += dice_value;
           $(`.current-player${activePlayer}`).text(`${currentScore}`);
@@ -321,20 +330,24 @@ const main = function () {
           switchPlayerFunction(players_playing, activePlayer);
         }
       } else if (current_game_mode === game_mode[1]) {
-        let dice_value = Math.trunc(Math.random() * 6 + 1);
-        let dice_value2 = Math.trunc(Math.random() * 6 + 1);
-        $("#dice1").attr("src", `./dice/dice-${dice_value}.jpg`);
-        $("#dice2").attr("src", `./dice/dice-${dice_value2}.jpg`);
-        $("#prestart-image").hide();
-        $("#prestart-image2").hide();
+        let dice_value = determineDiceValue(6, 1);
+        let dice_value2 = determineDiceValue(6, 2);
+        console.log(`dice val1 is : ${dice_value}`);
+        console.log(`dice val2 is : ${dice_value2}`);
         if (dice_value !== 1 && dice_value2 !== 1) {
           currentScore += dice_value + dice_value2;
           $(`.current-player${activePlayer}`).text(`${currentScore}`);
+          if (
+            total_scores[activePlayer] >= win_points / 2 &&
+            chance_player[activePlayer] > 0
+          ) {
+            flashpointEvent();
+          }
         } else if (dice_value === 1 && dice_value2 === 1) {
           total_scores[activePlayer] = 0;
           $(`#total-score-player${activePlayer}`).text("0");
           rolledAOne();
-          switchPlayer();
+          switchPlayerFunction(players_playing, activePlayer);
           $("#boom").text("💥 BOOM! 💥 SCORE RESET!");
         } else if (dice_value === 1 || dice_value2 === 1) {
           rolledAOne();
@@ -344,16 +357,16 @@ const main = function () {
     }
   };
 
-  //=============================== USER INPUTS ================================
+  //=============================== USER INPUTS/ EVENT LISTENERS ================================
 
+  initializeGame();
   // event listener - check if player decide to change their names
   $("#player0-name").on("change", setPlayer1Name);
   $("#player1-name").on("change", setPlayer2Name);
   $("#player2-name").on("change", setPlayer3Name);
   $("#player3-name").on("change", setPlayer4Name);
   // event listener - select game Mode.
-  $("#prestart-image2").hide();
-  $("#dice2").hide();
+
   $(".pig-mode").on("click", pigMode);
   $(".two-dice-pig-mode").on("click", twoDicePigMode);
 
@@ -367,12 +380,7 @@ const main = function () {
   // event listener - to show about (how to play).
   $(".about").on("click", showAbout);
   $(".off-about").on("click", offAbout);
-  $("#about-description").hide();
-
   // event listener - begin game.
-  $("#show-game-page").hide();
-  $("#boom").hide();
-  $(".flashpointevent").hide();
   $(".start-game").on("click", startGame);
   // event listener - during game.
   $("#player-reset").on("click", restartGame);
